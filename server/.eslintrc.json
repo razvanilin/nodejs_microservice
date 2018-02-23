@@ -1,3 +1,6 @@
 {
-  "extends": "strongloop"
+  "extends": "eslint-config-es5",
+  "rules": {
+    "func-names": ["error", "never"]
+  }
 }

@@ -1,32 +1,31 @@
-const mongoose = require('mongoose');
-const uuid = require('uuid/v1');
+var mongoose = require('mongoose');
+var uuid = require('uuid/v1');
 
 var CompanySchema = new mongoose.Schema({
   _id: {
     type: String,
-    default: () => return uuid(),
+    default: function() { return uuid(); },
     required: true,
-    unique: true,
+    unique: true
   },
   displayName: {
     type: String,
-    required: true,
+    required: true
   },
   name: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
   workspaces: [{
     type: String,
-    ref: "workspace",
-  }],
+    ref: 'workspace'
+  }]
 });
 
 // hook to set the 'name' field automatically
-CompanySchema.pre("save", (doc) => {
-  if (doc.displayName)
-    doc.name = doc.displayName.toLowerCase();
+CompanySchema.pre('save', function(doc) {
+  if (doc.displayName) {doc.name = doc.displayName.toLowerCase();}
 
   return doc;
 });

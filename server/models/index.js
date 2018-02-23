@@ -1,5 +1,9 @@
+var company = require('./Company');
+var workspace = require('./Workspace');
+var user = require('./User');
+
 module.exports = {
-  company: require('./Company'),
-  workspace: require('./Workspace'),
-  user: require('./User'),
+  company: company,
+  workspace: workspace,
+  user: user
 };

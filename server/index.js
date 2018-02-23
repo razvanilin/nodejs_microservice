@@ -1,13 +1,15 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const methodOverride = require("method-override");
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const cors = require("cors");
-const _ = require('lodash');
+var express = require('express');
+var mongoose = require('mongoose');
+var methodOverride = require('method-override');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var cors = require('cors');
+var _ = require('lodash');
+
+var models = require('./models/index');
+var routes = require('./routes/index');
 
 var app = express();
-var http = require("http").Server(app);
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -17,18 +19,17 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(cors());
 
 // Connect to mongodb
-var mongoDB = mongoose.connect(app.settings.dbhost, {useMongoClient: true});
+mongoose.connect(app.settings.dbhost, {useMongoClient: true});
 mongoose.connection.once('open', function() {
   // Load the models
-  app.models = require('./models/index');
+  app.models = models;
 
   // Load the routes
-  var routes = require('./routes/index');
   _.each(routes, function(controller, route) {
     app.use(route, controller(app, route));
   });
 
-  var server = app.listen(app.settings.port, function() {
-    console.log("Running server on port " + app.settings.port);
+  app.listen(app.settings.port, function() {
+    console.log('Running server on port ' + app.settings.port);
   });
 });
