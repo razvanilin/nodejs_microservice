@@ -1,6 +1,7 @@
 {
   "extends": "eslint-config-es5",
   "rules": {
-    "func-names": ["error", "never"]
+    "func-names": ["error", "never"],
+    "no-trailing-spaces": [1, { "skipBlankLines": true }]
   }
 }

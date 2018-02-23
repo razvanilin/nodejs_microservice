@@ -5,8 +5,7 @@ var CompanySchema = new mongoose.Schema({
   _id: {
     type: String,
     default: function() { return uuid(); },
-    required: true,
-    unique: true
+    required: true
   },
   displayName: {
     type: String,
