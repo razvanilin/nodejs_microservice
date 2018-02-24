@@ -6,6 +6,7 @@
   "scripts": {
     "pretests": "eslint --ignore-path .gitignore .",
     "runTest": "node node_modules/mocha/bin/mocha -R spec --recursive tests && exit 0",
+    "testCtrl": "node node_modules/mocha/bin/mocha -R spec tests/*-controller-test.js",
     "lint": "eslint --fix --ignore-path .gitignore .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
