@@ -1,36 +1,23 @@
 /* eslint-env mocha */
 
 var assert = require('assert');
-var server = require('../server');
+var mongoose = require('mongoose');
 var CompanyController = require('../controllers/CompanyController');
 
 describe('Testing the controllers', function() {
-  var db = null;
-  var app = null;
   var id;
   var testCompanies = [{
     displayName: 'Company1'
   }];
   var Company = new CompanyController();
 
-  beforeEach(function() {
-    return server({
-      port: 3330,
-      dbhost: 'mongodb://localhost/businessTest',
-      test: true
-    }, function(serverConf) {
-      app = serverConf.app;
-      db = serverConf.db;
-    });
-  });
-
-  afterEach(function(done) {
-    app.close(done);
-    app = null;
+  beforeEach(function(done) { // eslint-disable-line consistent-return
+    if (mongoose.connection.db) return done();
+    mongoose.connect('mongodb://localhost/businessTest', done);
   });
 
   after(function(done) {
-    db.dropDatabase(done);
+    mongoose.connection.db.dropDatabase(done);
   });
 
   it('should find an empty list of companies', function(done) {
