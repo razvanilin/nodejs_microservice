@@ -12,6 +12,8 @@ describe('Testing the Company controller', function() {
 
   var testCompanies = [{
     displayName: 'Company1'
+  }, {
+    displayName: 'Company2'
   }];
   var testWorkspaces = [{
     displayName: 'Development'
@@ -110,13 +112,25 @@ describe('Testing the Company controller', function() {
       });
   });
 
-  it('should fail to create a new workspace because of duplicity', function(done) {
+  it('should fail to create a new workspace in the same company because of duplicity', function(done) {
     Company.addWorkspace(id, testWorkspaces[1])
       .then(function(company) {
         assert.equal(company, null);
       })
       .catch(function() {
         done();
+      });
+  });
+
+  it('should create the same workspace in a new company', function(done) {
+    Company.create(testCompanies[1])
+      .then(function(company) {
+        Company.addWorkspace(company._id, testWorkspaces[0])
+          .then(function(updatedCompany) {
+            assert.equal(updatedCompany.workspaces[0].displayName, testWorkspaces[0].displayName);
+            assert.equal(updatedCompany.workspaces[0].name, testWorkspaces[0].displayName.toLowerCase());
+            done();
+          });
       });
   });
 

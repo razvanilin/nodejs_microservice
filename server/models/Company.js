@@ -28,4 +28,16 @@ CompanySchema.pre('save', function(next) {
   next();
 });
 
+// hook to check if the workspace name is unique in the company
+CompanySchema.pre('validate', function(next) {
+  var workspaces = [];
+  for (var i in this.workspaces) {
+    if (workspaces.indexOf(this.workspaces[i]) > -1) {
+      return next(new Error('Duplicate workspace name'));
+    }
+  }
+
+  return next();
+});
+
 module.exports = CompanySchema;

@@ -4,7 +4,7 @@ var supertest = require('supertest');
 var server = require('../server');
 var assert = require('assert');
 
-describe('Testing API', function() {
+describe('Testing the Company route from the API', function() {
   var app = null;
   var db = null;
   var id;

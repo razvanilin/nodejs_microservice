@@ -12,8 +12,7 @@ var WorkspaceSchema = new mongoose.Schema({
     required: true
   },
   name: {
-    type: String,
-    unique: true
+    type: String
   },
   users: [{
     type: mongoose.Schema.Types.ObjectId,

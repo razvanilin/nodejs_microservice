@@ -28,7 +28,7 @@ module.exports = function(settings, cb) {
     });
 
     app = app.listen(settings.port, function() {
-      console.log('Running server on port ' + settings.port);
+      // console.log('Running server on port ' + settings.port);
     });
 
     return cb({
