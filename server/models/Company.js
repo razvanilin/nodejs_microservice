@@ -13,7 +13,6 @@ var CompanySchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    required: true,
     unique: true
   },
   workspaces: [{
@@ -23,10 +22,9 @@ var CompanySchema = new mongoose.Schema({
 });
 
 // hook to set the 'name' field automatically
-CompanySchema.pre('save', function(doc) {
-  if (doc.displayName) {doc.name = doc.displayName.toLowerCase();}
-
-  return doc;
+CompanySchema.pre('save', function(next) {
+  if (this.displayName) {this.name = this.displayName.toLowerCase();}
+  next();
 });
 
 module.exports = CompanySchema;

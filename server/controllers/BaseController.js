@@ -45,11 +45,10 @@ BaseController.prototype.update = function(id, data) {
       // go through the data and prepare the update object
       for (var attr in data) {
         // ignore the attribute if it coincides with the key
-        if (data.attr && attr !== this.key && attr !== '_id') {
-          doc[attr] = data[attr];
+        if (data[attr] && attr !== this.key && attr !== '_id') {
+          doc.set(attr, data[attr]);
         }
       }
-
       return doc.save();
     })
     .then(function(doc) {
