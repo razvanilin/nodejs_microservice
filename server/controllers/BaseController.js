@@ -1,6 +1,11 @@
-function BaseController(model, key) {
+function BaseController(model, key, path) {
   this.model = model;
   this.key = key;
+  if (path) {
+    this.path = path;
+  } else {
+    this.path = '';
+  }
 }
 
 BaseController.prototype.list = function() {
@@ -25,7 +30,7 @@ BaseController.prototype.create = function(data) {
 BaseController.prototype.findById = function(id) {
   // prepare the query options with the correct primary key
   var queryOpt = {};
-  queryOpt[this.key] = id;
+  queryOpt[this.path + this.key] = id;
 
   return this.model
     .findOne(queryOpt)
@@ -36,7 +41,7 @@ BaseController.prototype.findById = function(id) {
 
 BaseController.prototype.update = function(id, data) {
   var queryOpt = {};
-  queryOpt[this.key] = id;
+  queryOpt[this.path + this.key] = id;
 
   // find the right document and then update it with the data passed
   return this.model

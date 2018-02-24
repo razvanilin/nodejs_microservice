@@ -13,19 +13,18 @@ var WorkspaceSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    required: true
+    unique: true
   },
   users: [{
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'user'
   }]
 });
 
 // hook to set the 'name' field automatically
-WorkspaceSchema.pre('save', function(doc) {
-  if (doc.displayName) {doc.name = doc.displayName.toLowerCase();}
-
-  return doc;
+WorkspaceSchema.pre('save', function(next) {
+  if (this.displayName) {this.name = this.displayName.toLowerCase();}
+  next();
 });
 
 module.exports = WorkspaceSchema;

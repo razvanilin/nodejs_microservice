@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var uuid = require('uuid/v1');
+var WorkspaceSchema = require('./Workspace');
 
 var CompanySchema = new mongoose.Schema({
   _id: {
@@ -16,8 +17,8 @@ var CompanySchema = new mongoose.Schema({
     unique: true
   },
   workspaces: [{
-    type: String,
-    ref: 'workspace'
+    type: WorkspaceSchema,
+    required: true
   }]
 });
 
