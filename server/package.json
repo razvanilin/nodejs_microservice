@@ -8,7 +8,8 @@
     "runTest": "node node_modules/mocha/bin/mocha -R spec --recursive tests && exit 0",
     "testCtrl": "node node_modules/mocha/bin/mocha -R spec tests/*-controller-test.js",
     "lint": "eslint --fix --ignore-path .gitignore .",
-    "test": "node node_modules/mocha/bin/mocha -R spec --recursive tests"
+    "test": "node node_modules/mocha/bin/mocha -R spec --recursive tests",
+    "start": "node index"
   },
   "author": "Razvan Ilin (razvanilin@gmail.com)",
   "license": "ISC",

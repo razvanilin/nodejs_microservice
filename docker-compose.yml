@@ -1,0 +1,39 @@
+version: "3"
+services:
+  client:
+    container_name: node_microservice_client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    networks:
+      - local
+    ports:
+      - "3000:3000"
+    links:
+      - app
+  app:
+    container_name: node_microservice
+    restart: always
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    networks:
+      - local
+    ports:
+      - "3330:3330"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - mongodata:/data/db
+    networks:
+      - local
+    ports:
+      - "27017:27017"
+volumes:
+  mongodata:
+networks:
+  local:
+    driver: bridge

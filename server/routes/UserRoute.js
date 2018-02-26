@@ -21,6 +21,7 @@ module.exports = function(app, route) {
   app.get('/' + route + '/:id', function(req, res) {
     User.findById(req.params.id)
       .then(function(user) {
+        if (!user._id) return res.status(400).send({error: user});
         return res.status(200).send(user);
       })
       .catch(function(error) {
@@ -34,6 +35,7 @@ module.exports = function(app, route) {
   app.post('/' + route, function(req, res) {
     User.create(req.body)
       .then(function(user) {
+        if (!user._id) return res.status(400).send({error: user});
         return res.status(200).send(user);
       })
       .catch(function(error) {

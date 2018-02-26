@@ -19,6 +19,10 @@ module.exports = function(settings, cb) {
 
   app.use(cors());
 
+  app.get('/', function(req, res) {
+    return res.send('Welcome to the API');
+  });
+
   // Connect to mongodb
   mongoose.connect(settings.dbhost);
   return mongoose.connection.once('open', function() {
