@@ -16,6 +16,15 @@
 * NodeJs v7.2 or higher for running the React client in dev mode
 * MongoDb
 
+## Folder structure and explanation
+
+- client // this is the React app
+- server
+  - controllers // controller classes that utilise the models to modify the data in the database
+  - models // contains the Schema configuration for the models
+  - routes // contains the API routes
+  - tests // test files
+
 ## Starting up the microservice and API
 
 Make sure the `mongod` service is up and running.
